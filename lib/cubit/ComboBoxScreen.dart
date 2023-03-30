@@ -1,3 +1,8 @@
+// ignore: file_names
+// ignore: file_names
+// ignore: file_names
+// ignore_for_file: library_private_types_in_public_api, file_names, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +28,8 @@ class ComboBoxCubit extends Cubit<List<String>> {
 }
 
 class ComboBoxScreen extends StatefulWidget {
+  const ComboBoxScreen({super.key});
+
   @override
   _ComboBoxScreenState createState() => _ComboBoxScreenState();
 }
@@ -44,7 +51,7 @@ class _ComboBoxScreenState extends State<ComboBoxScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ComboBox Example'),
+        title: const Text('ComboBox Example'),
       ),
       body: Center(
         child: Column(
@@ -58,22 +65,22 @@ class _ComboBoxScreenState extends State<ComboBoxScreen> {
                     showDialog(
                       context: context,
                       builder: (_) => AlertDialog(
-                        title: Text('Add Item'),
+                        title: const Text('Add Item'),
                         content: TextField(
                           controller: _controller,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'Enter a new item',
                           ),
                         ),
                         actions: [
                           TextButton(
-                            child: Text('Cancel'),
+                            child: const Text('Cancel'),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
                           ),
                           TextButton(
-                            child: Text('Add'),
+                            child: const Text('Add'),
                             onPressed: () {
                               final newItem = _controller.text;
                               _comboBoxCubit.addItem(newItem);
@@ -87,35 +94,37 @@ class _ComboBoxScreenState extends State<ComboBoxScreen> {
                       ),
                     );
                   },
-                  child: Text('Add'),
+                  child: const Text('Add'),
                 ),
-                SizedBox(width: 16.0),
+                const SizedBox(width: 16.0),
                 ElevatedButton(
                   onPressed: () {
                     showDialog(
                       context: context,
                       builder: (_) => AlertDialog(
-                        title: Text('Edit Item'),
+                        title: const Text('Edit Item'),
                         content: TextField(
                           controller: _controller..text = _selectedItem,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'Edit the item',
                           ),
                         ),
                         actions: [
                           TextButton(
-                            child: Text('Cancel'),
+                            child: const Text('Cancel'),
                             onPressed: () {
+                              _controller.clear();
                               Navigator.of(context).pop();
                             },
                           ),
                           TextButton(
-                            child: Text('Save'),
+                            child: const Text('Save'),
                             onPressed: () {
                               final newItem = _controller.text;
                               _comboBoxCubit.editItem(_selectedItem, newItem);
                               setState(() {
                                 _selectedItem = newItem;
+                                _controller.clear();
                               });
                               Navigator.of(context).pop();
                             },
@@ -124,11 +133,12 @@ class _ComboBoxScreenState extends State<ComboBoxScreen> {
                       ),
                     );
                   },
-                  child: Text('Edit'),
+                  child: const Text('Edit'),
                 ),
-                SizedBox(width: 16.0),
+                const SizedBox(width: 16.0),
                 ElevatedButton(
                   onPressed: () {
+                    _controller.clear();
                     _comboBoxCubit.removeItem(_selectedItem);
                     setState(() {
                       _selectedItem = _comboBoxCubit.state.isNotEmpty
@@ -136,11 +146,11 @@ class _ComboBoxScreenState extends State<ComboBoxScreen> {
                           : '';
                     });
                   },
-                  child: Text('Remove'),
+                  child: const Text('Remove'),
                 ),
               ],
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             BlocBuilder<ComboBoxCubit, List<String>>(
               bloc: _comboBoxCubit,
               builder: (context, state) {
@@ -160,7 +170,7 @@ class _ComboBoxScreenState extends State<ComboBoxScreen> {
                     },
                   );
                 } else {
-                  return Text('No items added');
+                  return const Text('No items added');
                 }
               },
             ),

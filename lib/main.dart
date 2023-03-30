@@ -4,15 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'cubit/ComboBoxScreen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ComboBoxCubit(),
-      child: MaterialApp(
+      child: const MaterialApp(
         title: 'Combo Box',
         home: ComboBoxScreen(),
       ),
